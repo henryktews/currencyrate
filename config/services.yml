@@ -1,0 +1,15 @@
+services:
+  currencyrate.service.nbp_api_service:
+    class: CurrencyRate\Service\NbpApiService
+    arguments:
+      - '@=service("prestashop.adapter.http_client").getClient()'
+      - '@prestashop.adapter.legacy.configuration'
+
+  currencyrate.repository.currency_rate_repository:
+    class: CurrencyRate\Repository\CurrencyRateRepository
+
+  currencyrate.service.currency_rate_service:
+    class: CurrencyRate\Service\CurrencyRateService
+    arguments:
+      - '@currencyrate.service.nbp_api_service'
+      - '@currencyrate.repository.currency_rate_repository'
